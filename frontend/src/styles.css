@@ -1,0 +1,107 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@fontsource/heebo/400.css";
+@import "@fontsource/heebo/500.css";
+@import "@fontsource/heebo/600.css";
+@import "@fontsource/heebo/700.css";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* Semantic design tokens (light). Contrast pairs checked against WCAG AA (4.5:1 for text). */
+:root {
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --surface-2: #f1f4f7;
+  --border: #dde3ea;
+  --text: #0f1b2a;
+  --text-muted: #4a5868;
+  --primary: #0f766e;
+  --primary-hover: #0b5f58;
+  --primary-soft: #e3f4f1;
+  --primary-text: #ffffff;
+  --accent: #1d4ed8;
+  --focus: #2563eb;
+  --ok: #157f3d;       --ok-soft: #e4f6ea;
+  --warn: #9a5b00;     --warn-soft: #fdf3dc;
+  --danger: #b42318;   --danger-soft: #fdecea;
+  --info: #1e5aa8;     --info-soft: #e6effb;
+  --neutral: #4a5868;  --neutral-soft: #eef1f4;
+  --violet: #6d28d9;   --violet-soft: #f1ebfd;
+  --shadow: 0 1px 2px rgb(15 27 42 / 0.06), 0 1px 3px rgb(15 27 42 / 0.08);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0b1220;
+  --surface: #111a2b;
+  --surface-2: #17223a;
+  --border: #26344d;
+  --text: #e7edf5;
+  --text-muted: #a3b1c4;
+  --primary: #2dd4bf;
+  --primary-hover: #5eead4;
+  --primary-soft: #0f2f2d;
+  --primary-text: #062421;
+  --accent: #93b4ff;
+  --focus: #93b4ff;
+  --ok: #4ade80;       --ok-soft: #10301d;
+  --warn: #fbbf24;     --warn-soft: #33270b;
+  --danger: #f87171;   --danger-soft: #3a1515;
+  --info: #7cb2ff;     --info-soft: #132a4a;
+  --neutral: #a3b1c4;  --neutral-soft: #1c2840;
+  --violet: #c4b5fd;   --violet-soft: #2a1f47;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--border);
+  --color-ink: var(--text);
+  --color-muted: var(--text-muted);
+  --color-brand: var(--primary);
+  --color-brand-hover: var(--primary-hover);
+  --color-brand-soft: var(--primary-soft);
+  --color-on-brand: var(--primary-text);
+  --color-accent: var(--accent);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-neutral: var(--neutral);
+  --color-neutral-soft: var(--neutral-soft);
+  --color-violet: var(--violet);
+  --color-violet-soft: var(--violet-soft);
+  --font-sans: "Inter Variable", "Heebo", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html { background: var(--bg); color: var(--text); }
+html[lang="he"] body { font-family: "Heebo", "Inter Variable", system-ui, sans-serif; }
+body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); }
+.skip-link { position: absolute; inset-inline-start: 8px; top: -60px; z-index: 100; }
+.skip-link:focus { top: 8px; }
+
+/* Native dialog styling */
+dialog::backdrop { background: rgb(8 15 28 / 0.55); }
+dialog { color: var(--text); }
+
+/* Original document text keeps its own direction */
+.doc-text { white-space: pre-wrap; unicode-bidi: plaintext; font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; }
+mark.passage { background: color-mix(in oklab, var(--warn) 30%, transparent); color: inherit; border-radius: 3px; padding: 0 2px; }
+
+/* LiveKit components inherit our theme */
+.lk-room-container { --lk-bg: var(--bg); --lk-bg2: var(--surface); --lk-bg3: var(--surface-2); --lk-fg: var(--text); --lk-accent-bg: var(--primary); --lk-border-radius: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
