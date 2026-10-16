@@ -1,0 +1,129 @@
+# HealthBridge AI — local, synthetic-data deployment.
+# Start:  docker compose up -d --build        (open http://localhost:8083)
+# Stop:   docker compose down                 Reset all data: docker compose down -v
+# Optional local LLM: docker compose --profile ollama up -d
+name: healthbridge
+
+x-backend-env: &backend-env
+  HB_ENVIRONMENT: ${HB_ENVIRONMENT:-development}
+  HB_DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+  HB_STORAGE_ENCRYPTION_KEY: ${HB_STORAGE_ENCRYPTION_KEY}
+  HB_AUDIT_HMAC_KEY: ${HB_AUDIT_HMAC_KEY}
+  HB_COOKIE_SECURE: ${HB_COOKIE_SECURE:-false}
+  HB_DEMO_MODE: ${HB_DEMO_MODE:-true}
+  HB_LIVEKIT_API_KEY: ${LIVEKIT_API_KEY}
+  HB_LIVEKIT_API_SECRET: ${LIVEKIT_API_SECRET}
+  HB_LIVEKIT_PUBLIC_URL: ${HB_LIVEKIT_PUBLIC_URL:-ws://localhost:7880}
+  HB_LIVEKIT_INTERNAL_URL: http://livekit:7880
+  HB_AI_MODE: ${HB_AI_MODE:-mock}
+  HB_OLLAMA_URL: ${HB_OLLAMA_URL:-http://ollama:11434}
+  HB_OLLAMA_MODEL: ${HB_OLLAMA_MODEL:-llama3.2:3b}
+  HB_EMBEDDING_PROVIDER: ${HB_EMBEDDING_PROVIDER:-hash}
+  HB_CORS_ORIGINS: '["http://localhost:8083","http://localhost:5173"]'
+
+services:
+  db:
+    image: pgvector/pgvector:0.8.7-pg16-trixie
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      target: runtime
+    environment:
+      <<: *backend-env
+      HB_SEED_ON_START: ${HB_SEED_ON_START:-true}
+      HB_SEED_SCENARIO: ${HB_SEED_SCENARIO:-showcase}
+    volumes:
+      - docstore:/data/documents
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      target: runtime
+    command: ["python", "-m", "app.worker"]
+    environment: *backend-env
+    volumes:
+      - docstore:/data/documents
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import os,signal; os.kill(1, 0)\""]
+      interval: 15s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: frontend
+    environment:
+      LIVEKIT_CSP_SOURCES: ${LIVEKIT_CSP_SOURCES:-ws://localhost:7880 http://localhost:7880}
+    ports:
+      - "127.0.0.1:8083:8083"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8083/healthz >/dev/null || exit 1"]
+      interval: 10s
+    restart: unless-stopped
+
+  livekit:
+    image: livekit/livekit-server:v1.13.8
+    command: ["--config", "/etc/livekit.yaml", "--node-ip", "${LIVEKIT_NODE_IP:-127.0.0.1}"]
+    environment:
+      LIVEKIT_KEYS: "${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}"
+    volumes:
+      - ./livekit/livekit.yaml:/etc/livekit.yaml:ro
+    ports:
+      - "127.0.0.1:7880:7880"
+      - "127.0.0.1:7881:7881"
+      - "127.0.0.1:50000-50060:50000-50060/udp"
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:0.12.3
+    profiles: ["ollama"]
+    volumes:
+      - ollama:/root/.ollama
+    restart: unless-stopped
+
+  # Test runner (not started by default): docker compose --profile test run --rm tests
+  tests:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      target: test
+    profiles: ["test"]
+    environment:
+      <<: *backend-env
+      HB_ENVIRONMENT: test
+      HB_DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/healthbridge_test
+      HB_STORAGE_DIR: /tmp/hb-test-docs
+      HB_EMBEDDING_PROVIDER: hash
+      HB_AI_MODE: mock
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+  docstore:
+  ollama:

@@ -1,0 +1,7 @@
+# Secret scanning config: default rules plus a narrow allowlist for synthetic test-only passwords.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Synthetic passwords for throwaway accounts created inside the isolated test database"
+regexes = ['''Strong-Passw0rd''']
