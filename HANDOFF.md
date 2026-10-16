@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-15 (updated 2026-10-16) · **Branch:** `feature/healthbridge-platform` (local only) · **Base:** `main` @ `8b2e951 Initial commit`
 **Status:** implementation complete and verified locally, including the §0 security fix (done 2026-10-16);
-**nothing committed or pushed yet** (awaiting user go-ahead).
+committed and **pushed** to `origin/feature/healthbridge-platform` (2026-10-16); no PR opened.
 
 ---
 
@@ -90,7 +90,7 @@ references, and 14 real screenshots. `README.md` rewritten (WHAT / WHY / HOW).
 0. ~~Security fix (§0)~~ — done.
 1. ~~Test-count correction~~ — done (148).
 2. ~~`prompt_01.md`~~ — no longer in the repo and never in git history; nothing to decide.
-3. ~~Commit~~ — done 2026-10-16 as 4 local commits (not pushed; push/PR only with explicit approval). Original note: **Review the diff and commit** on `feature/healthbridge-platform` (needs user go-ahead). Do not commit
+3. ~~Commit~~ — done 2026-10-16 as 5 commits, pushed to origin (no PR; open one only with explicit approval). Original note: **Review the diff and commit** on `feature/healthbridge-platform` (needs user go-ahead). Do not commit
    `.env`, `frontend/e2e/.auth/`, `frontend/test-results/`, `node_modules/` (all gitignored). Suggested split:
    backend · frontend · infra · docs, or one commit. Push only if explicitly authorized.
 4. **Final delivery report** (brief §34): architecture, feature inventory, status by area, test counts,
@@ -141,7 +141,7 @@ node scripts/capture-screenshots.mjs                 # regenerates docs/screensh
 | Documentation; real screenshots | ✅ done |
 | Golden E2E scenario demonstrated | ✅ verified (automated, 13 steps) |
 | Unauthorized data access blocked — care-gap detail for partially-shared professionals | ✅ verified (dedicated test, redeployed, E2E) |
-| Committed to git / final report delivered | ✅ 4 local commits on `feature/healthbridge-platform` (backend · frontend · infra · docs), **not pushed**; final report delivered in the 2026-10-16 session |
+| Committed to git / final report delivered | ✅ 5 commits on `feature/healthbridge-platform` (backend · frontend · infra · docs · declined-participant fix), **pushed**, no PR; final report delivered in the 2026-10-16 session |
 
 ## 8. Key file map
 
