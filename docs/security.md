@@ -34,6 +34,11 @@ single per-viewer serializer for all three paths. Patients see the full finding.
 itself (rule, status, missing-evidence type) but evidence is filtered to their scope, and title, suggestion and
 parameters are replaced with a neutral "not shared with you" text when their source is out of scope; sharing
 findings about other professionals become a generic item. Unknown evidence types are hidden by default.
+Related fix (same review, MEDIUM): a professional who **declined** a consultation invitation could still read
+that consultation's summary documents, because `accessible_document_ids` ignored `invite_status`. It now requires an
+active professional participant, matching `is_professional_participant` (regression assertion in
+`test_summary_requires_every_professional_and_links_journey`).
+
 Residual: follow-up task titles (visible with a journey grant) may still quote recommendation text from
 unshared documents — journey/task sharing is by design all-or-nothing in this demo.
 

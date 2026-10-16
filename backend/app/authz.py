@@ -103,13 +103,15 @@ class AccessPolicy:
             conds.append(Document.id.in_(select(GrantDocument.document_id).where(GrantDocument.grant_id.in_(grant_ids))))
         if categories:
             conds.append(Document.category.in_(categories))
-        # Summaries of consultations this professional took part in.
+        # Summaries of consultations this professional takes part in (same rule as is_professional_participant).
         conds.append(
             Document.id.in_(
                 select(ConsultationSummary.document_id)
                 .join(Consultation, Consultation.id == ConsultationSummary.consultation_id)
                 .join(ConsultationParticipant, ConsultationParticipant.consultation_id == Consultation.id)
                 .where(ConsultationParticipant.user_id == self.user.id, Consultation.patient_id == patient_id,
+                       ConsultationParticipant.meeting_role == "professional",
+                       ConsultationParticipant.invite_status != "declined",
                        ConsultationSummary.document_id.is_not(None))
             )
         )

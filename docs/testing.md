@@ -72,6 +72,8 @@ tags), sample-file presence.
   text, suggestions, document IDs, journey-event labels and other professionals' names from sources the professional
   could not see → per-viewer `gap_view` redaction in the API and the assistant
   (`test_care_gaps_redacted_for_partially_shared_professional`); Hebrew rendering of redacted items added.
+* Declined consultation participants kept access to the consultation's summary documents → participation check
+  requires `invite_status != "declined"` and the professional role (found by security review).
 * Signing out and signing in as a different user in the same tab sent the new user to the previous user's page
   (sign-out cleared the session while the protected route was still mounted, which recorded it as the next
   sign-in's return path) → navigate to `/login` before clearing the session. Surfaced by slow connections below.

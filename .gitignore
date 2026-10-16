@@ -32,3 +32,6 @@ Thumbs.db
 !.vscode/extensions.json
 .idea/
 frontend/e2e/.auth/
+
+# Local admin sign-in notes (never commit)
+ADMIN_USER.md

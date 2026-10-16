@@ -127,6 +127,9 @@ def test_summary_requires_every_professional_and_links_journey(seeded):
     # Participants can read the approved summary document even without a separate grant
     assert bennett.get(f"/api/documents/{a2['document_id']}").status_code == 200
     assert Api("ronen").get(f"/api/documents/{a2['document_id']}").status_code == 404
+    # ...and lose it once they decline the invitation
+    assert bennett.post(f"/api/consultations/{c['id']}/respond", json={"decision": "decline"}).status_code == 200
+    assert bennett.get(f"/api/documents/{a2['document_id']}").status_code == 404
 
     # Handoff proposed by a professional is inert until the patient approves
     h = morgan.post(f"/api/summaries/{s2['id']}/handoffs", json={"to_user_id": str(user_id("ronen")), "note": "FYI"}).json()
