@@ -1,0 +1,17 @@
+Harbor Crest Medical Center - Emergency Department Discharge Summary
+Date of discharge: 2026-06-03
+Attending physician: Dr. Lior Katz
+Patient: Noa Ben-David (synthetic record)
+
+Presentation:
+Arrived on 2026-06-02 with chest discomfort after climbing stairs. Symptoms resolved within an hour.
+
+Course:
+Serial troponin measurements were within the reference range. ECG showed sinus rhythm.
+A chest X-ray was performed in the department.
+
+Discharge plan:
+- Follow-up with your family physician within 1 week.
+- Repeat lipid panel in 6 months.
+
+This is a synthetic document created for the HealthBridge AI demonstration.

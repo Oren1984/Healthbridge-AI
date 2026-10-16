@@ -1,0 +1,47 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 616 >>
+stream
+BT /F1 10 Tf 50 800 Td 13 TL
+(Northstar Diagnostics Lab - Laboratory Report) Tj T*
+(Collection date: 2026-05-19) Tj T*
+(Ordering physician: Dr. Amir Haddad \(Tamar Valley Health Fund\)) Tj T*
+(Patient: Noa Ben-David \(synthetic record\)) Tj T*
+() Tj T*
+(Lipid panel:) Tj T*
+(Total cholesterol 228 mg/dL \(reference below 200\)) Tj T*
+(LDL cholesterol 151 mg/dL \(reference below 130\)) Tj T*
+(HDL cholesterol 52 mg/dL) Tj T*
+(Triglycerides 124 mg/dL) Tj T*
+() Tj T*
+(Results are reported for the lipid panel only.) Tj T*
+() Tj T*
+(This is a synthetic document created for the HealthBridge AI demonstration.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000908 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1005
+%%EOF
