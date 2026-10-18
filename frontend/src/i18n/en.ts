@@ -3,6 +3,7 @@ const en = {
   "app.tagline": "One Patient. One Journey. Connected Care Worldwide.",
   "app.synthetic": "Synthetic data",
   "app.disclaimer": "Synthetic-data research and engineering demonstration — not a clinically validated medical product.",
+  "app.credit": "Version 1.0 | Built and developed by Oren Salami",
   "common.loading": "Loading…",
   "common.error": "Something went wrong",
   "common.retry": "Try again",

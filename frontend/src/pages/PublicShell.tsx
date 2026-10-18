@@ -27,7 +27,10 @@ export function PublicShell({ children }: { children: ReactNode }) {
         </button>
       </header>
       <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">{children}</main>
-      <footer className="px-4 sm:px-8 py-6 text-xs text-muted border-t border-line">{t("app.disclaimer")}</footer>
+      <footer className="px-4 sm:px-8 py-6 text-xs text-muted border-t border-line">
+        <p>{t("app.disclaimer")}</p>
+        <p className="mt-1" data-testid="app-credit">{t("app.credit")}</p>
+      </footer>
     </div>
   );
 }

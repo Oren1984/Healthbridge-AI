@@ -5,6 +5,7 @@ const he: Dict = {
   "app.tagline": "מטופל אחד. מסע אחד. טיפול מחובר בכל העולם.",
   "app.synthetic": "נתונים סינתטיים",
   "app.disclaimer": "הדגמת מחקר והנדסה על נתונים סינתטיים — אינה מוצר רפואי מאומת קלינית.",
+  "app.credit": "גרסה 1.0 | נבנה ופותח על ידי Oren Salami",
   "common.loading": "טוען…",
   "common.error": "משהו השתבש",
   "common.retry": "נסה שוב",

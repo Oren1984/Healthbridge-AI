@@ -188,6 +188,7 @@ export function Layout() {
         <main id="main" tabIndex={-1} className="flex-1 px-4 py-6 sm:px-6 lg:px-8 max-w-[1400px] w-full mx-auto focus:outline-none">
           <ErrorBoundary resetKey={loc.pathname}><Outlet /></ErrorBoundary>
         </main>
+        <footer className="border-t border-line px-4 py-3 sm:px-6 lg:px-8 text-xs text-muted" data-testid="app-credit">{t("app.credit")}</footer>
       </div>
     </div>
   );
